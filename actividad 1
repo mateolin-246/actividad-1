@@ -1,0 +1,116 @@
+def validate_grades(grades: dict) -> bool:
+    for subject, grade in grades.items():
+        if not (0.0 <= grade <= 5.0):
+            print(f"Error: La nota de '{subject}' ({grade}) está fuera del rango válido (0.0 - 5.0).")
+            return False
+    return True
+
+
+def validate_student(student: dict) -> bool:
+    subjects = student.get("materias", [])
+    grades = student.get("notas", {})
+
+    if len(subjects) < 3:
+        print(f"Error: El estudiante '{student['nombre']}' debe tener al menos 3 materias.")
+        return False
+
+    if not validate_grades(grades):
+        return False
+
+    return True
+
+
+def calculate_average(grades: dict) -> float:
+    if not grades:
+        return 0.0
+    return sum(grades.values()) / len(grades)
+
+
+def best_subject(grades: dict) -> str:
+    return max(grades, key=grades.get)
+
+
+def worst_subject(grades: dict) -> str:
+    return min(grades, key=grades.get)
+
+
+def student_passes(average: float) -> bool:
+    return average >= 3.0
+
+
+def show_student_report(student: dict) -> None:
+    name = student["nombre"]
+    age = student["edad"]
+    status = student["estado"]
+    subjects = student["materias"]
+    grades = student["notas"]
+
+    print("=" * 45)
+    print(f"  Estudiante : {name}")
+    print(f"  Edad       : {age} años")
+    print(f"  Estado     : {status}")
+    print(f"  Materias   : {', '.join(subjects)}")
+    print("-" * 45)
+
+    average = calculate_average(grades)
+    best = best_subject(grades)
+    worst = worst_subject(grades)
+    passes = student_passes(average)
+
+    print(f"  Promedio general : {average:.2f}")
+    print(f"  Mejor materia    : {best} ({grades[best]:.1f})")
+    print(f"  Peor materia     : {worst} ({grades[worst]:.1f})")
+    print(f"  Resultado        : {'✔ Aprueba' if passes else '✘ Reprueba'}")
+    print("=" * 45)
+    print()
+
+
+def main():
+    students = [
+        {
+            "nombre": "Ana Gómez",
+            "edad": 20,
+            "estado": "activo",
+            "materias": ["Matemáticas", "Física", "Programación"],
+            "notas": {
+                "Matemáticas": 4.5,
+                "Física": 3.2,
+                "Programación": 4.8,
+            },
+        },
+        {
+            "nombre": "Luis Torres",
+            "edad": 22,
+            "estado": "activo",
+            "materias": ["Historia", "Geografía", "Literatura", "Arte"],
+            "notas": {
+                "Historia": 2.1,
+                "Geografía": 1.8,
+                "Literatura": 2.5,
+                "Arte": 3.0,
+            },
+        },
+        {
+            "nombre": "María Pérez",
+            "edad": 19,
+            "estado": "inactivo",
+            "materias": ["Química", "Biología"],
+            "notas": {
+                "Química": 3.5,
+                "Biología": 4.0,
+            },
+        },
+
+    ]
+
+    print("\n===== SISTEMA DE REPORTE ESTUDIANTIL =====\n")
+
+    for student in students:
+        if validate_student(student):
+            show_student_report(student)
+        else:
+            print(f"  → Estudiante '{student['nombre']}' omitido por datos inválidos.\n")
+
+
+if __name__ == "__main__":
+    main()
