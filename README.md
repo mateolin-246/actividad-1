@@ -8,3 +8,6 @@ Genera una serie Fibonacci desde una posición de inicio y por un número de ite
 interactivo con tres opciones: verificar si un número es primo, calcular el factorial de un número, o contar las vocales de un texto con conteo individual por vocal.
                                   *EJERCICIO 5*
 Solicita nombre, edad y correo con validaciones: nombre mínimo 3 caracteres, edad entre 0 y 120, correo con @ y dominio .com o edu.co. Almacena los registros en una lista y permite consultarlos.
+
+                                  *TALLER FINAL DEL CORTE*
+Sistema de gestión de aeronaves. La clase abstracta Aeronave define la estructura base. SistemaNavegacion y SistemaCombustible son clases de apoyo independientes. AviónComercial hereda de las tres, aplica encapsulamiento con atributos privados y protegidos, y expone propiedades con validaciones para el estado y la capacidad de pasajeros.
